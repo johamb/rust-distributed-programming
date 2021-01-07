@@ -9,7 +9,7 @@ use tonic::transport::Server;
 use tonic::{Request, Response, Status};
 
 use notes::noticeboard_server::{Noticeboard, NoticeboardServer};
-use notes::{Note, Author, Title};
+use notes::{Author, Note, Title};
 
 pub mod notes {
     // You need to pass the name of the package declared in the .proto file here. In this case: notes.
@@ -18,7 +18,7 @@ pub mod notes {
 
 #[derive(Debug)]
 pub struct NoteService {
-    notes: Arc<Vec<Note>>,
+    notes: Vec<Note>,
 }
 
 #[tonic::async_trait]
@@ -50,7 +50,7 @@ impl Noticeboard for NoteService {
                             tx.send(Ok(note.clone())).await.unwrap();
                         }
                     }
-                    _ => ()
+                    _ => (),
                 }
             }
         });
@@ -58,15 +58,28 @@ impl Noticeboard for NoteService {
         Ok(Response::new(rx))
     }
 
+    // vlt ersetzen durch add_note
     async fn add_notes(
         &self,
-        _request: Request<tonic::Streaming<Note>>,
+        request: Request<tonic::Streaming<Note>>,
     ) -> Result<Response<()>, Status> {
-        unimplemented!()
+        let mut stream = request.into_inner();
+
+        while let Some(note) = stream.message().await? {
+            // let note = note?;
+            // let mut noteExists = false;
+            // for existingNote in &self.notes[..] {
+            //     if existingNote.title == &note.title {
+            //         noteExists = true;
+            //     }
+            // }
+            &self.notes.push(note);
+        }
+
+        Ok(Response::new(()))
     }
 }
 
 fn main() {
     println!("Hello, world!");
 }
-
