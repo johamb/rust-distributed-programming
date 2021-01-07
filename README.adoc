@@ -1,7 +1,30 @@
-# Überschrift
+# Comparing Distributed Programming in Rust and Go
 
-## ü2
+## Overview
 
+The purpose of this project is to compare the programming languages Rust and Go regarding their capabilities and characteristics for distributed programming.
+
+## Asynchronous Programming
+
+## Serialization and Messaging
+
+## Available Frameworks  
+
+## Additional Thoughts
+
+One central aspect of Rust's philosophy is its focus on performance.
+Although better low-level performance is in general a good thing, this particular advantage of Rust might not be as useful when it comes to building distributed systems. Since the performance of a distributed system as a whole tends to be constrained more by network latency than by the execution time of individual tasks.
+
+On the other hand, the fact that Rust offers very good memory efficiency means that it could be suited very well for distributed systems that keep a lot of data in memory at a time. For example, the authors of the Ballista framework claim that:
+
+__"The combination of Rust and Arrow provides excellent memory efficiency and memory usage can be 5x - 10x lower than Apache Spark in some cases"__footnote:[https://github.com/ballista-compute/ballista#how-does-this-compare-to-apache-spark]
+
+## Summary
+
+
+WARNING: Remove this
+
+### Asciidocschnipsel:
  - a
  - b
  - c
@@ -9,15 +32,8 @@
 |===
 |Name |Go |Rust
 
-|Firefox
-|Web Browser
-|Mozilla Firefox is an open-source web browser.
-It's designed for standards compliance,
-performance, portability.
+|test
+|test
+|TEst
 
-|Ruby
-|Programming Language
-|A programmer's best friend.
-
-...
 |===
