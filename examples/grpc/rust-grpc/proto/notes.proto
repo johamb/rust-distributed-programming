@@ -1,13 +1,26 @@
+syntax = "proto3";
+import "google/protobuf/empty.proto";
+package notes;
+
 service NotesExample {
-    rpc GetNoteByTitle(string) returns (Note) {}
+    rpc GetNoteByTitle(Title) returns (Note) {}
 
-    rpc ListNotesByAuthor(string) returns (stream Note) {}
+    rpc ListNotesByAuthor(Author) returns (stream Note) {}
 
-    rpc AddNotes(stream Note) returns (Confirmation) {}
+    rpc AddNotes(stream Note) returns (google.protobuf.Empty) {}
 }
 
 message Note {
     string title = 1;
     string content = 2;
     string author = 3;
+}
+
+message Title {
+    string title = 1;
+}
+
+message Author {
+    string nickname = 1;
+    string mail = 2;
 }
