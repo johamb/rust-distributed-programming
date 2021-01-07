@@ -13,7 +13,7 @@ service Noticeboard {
 message Note {
     string title = 1;
     string content = 2;
-    string author = 3;
+    Author author = 3;
 }
 
 message Title {

@@ -36,9 +36,26 @@ impl Noticeboard for NoteService {
 
     async fn list_notes_by_author(
         &self,
-        _request: Request<Author>,
+        request: Request<Author>,
     ) -> Result<Response<Self::ListNotesByAuthorStream>, Status> {
-        unimplemented!()
+        // TODO: read docs for mpsc::channel
+        let (mut tx, rx) = mpsc::channel(4);
+        let notes = self.notes.clone();
+
+        tokio::spawn(async move {
+            for note in &notes[..] {
+                match &note.author {
+                    Some(a) => {
+                        if a.mail == request.get_ref().mail {
+                            tx.send(Ok(note.clone())).await.unwrap();
+                        }
+                    }
+                    _ => ()
+                }
+            }
+        });
+
+        Ok(Response::new(rx))
     }
 
     async fn add_notes(
