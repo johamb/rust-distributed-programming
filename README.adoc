@@ -8,6 +8,10 @@ The purpose of this project is to compare the programming languages Rust and Go 
 
 ## Serialization and Messaging
 
+One thing that is pretty much inevitable when it comes to distributed systems programming is to have some form of messaging solution so that individual computing nodes can exchange serialized data.
+
+A widely used solution for this is Google's gRPC.
+
 ## Available Frameworks  
 
 ## Additional Thoughts
