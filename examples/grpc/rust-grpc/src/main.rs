@@ -17,12 +17,19 @@ pub mod notes {
 }
 
 #[derive(Debug)]
-struct NoteService;
+pub struct NoteService {
+    notes: Arc<Vec<Note>>,
+}
 
 #[tonic::async_trait]
 impl Noticeboard for NoteService {
-    async fn get_note_by_title(&self, _request: Request<Title>) -> Result<Response<Note>, Status> {
-        unimplemented!()
+    async fn get_note_by_title(&self, request: Request<Title>) -> Result<Response<Note>, Status> {
+        for note in &self.notes[..] {
+            if note.title == request.get_ref().title {
+                return Ok(Response::new(note.clone()));
+            }
+        }
+        Ok(Response::new(Note::default()))
     }
 
     type ListNotesByAuthorStream = mpsc::Receiver<Result<Note, Status>>;
