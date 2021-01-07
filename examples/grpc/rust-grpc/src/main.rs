@@ -8,7 +8,7 @@ use tokio::sync::mpsc;
 use tonic::transport::Server;
 use tonic::{Request, Response, Status};
 
-use notes::notes_example_server::{NotesExample, NotesExampleServer};
+use notes::noticeboard_server::{Noticeboard, NoticeboardServer};
 use notes::{Note, Author, Title};
 
 pub mod notes {
@@ -20,7 +20,7 @@ pub mod notes {
 struct NoteService;
 
 #[tonic::async_trait]
-impl NotesExample for NoteService {
+impl Noticeboard for NoteService {
     async fn get_note_by_title(&self, _request: Request<Title>) -> Result<Response<Note>, Status> {
         unimplemented!()
     }

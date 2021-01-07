@@ -2,7 +2,7 @@ syntax = "proto3";
 import "google/protobuf/empty.proto";
 package notes;
 
-service NotesExample {
+service Noticeboard {
     rpc GetNoteByTitle(Title) returns (Note) {}
 
     rpc ListNotesByAuthor(Author) returns (stream Note) {}
