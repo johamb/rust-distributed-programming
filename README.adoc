@@ -4,13 +4,15 @@
 
 The purpose of this project is to compare the programming languages Rust and Go regarding their capabilities and characteristics for distributed programming.
 
-## Asynchronous Programming
-
 ## Serialization and Messaging
 
 One thing that is pretty much inevitable when it comes to distributed systems programming is to have some form of messaging solution so that individual computing nodes can exchange serialized data.
 
-A widely used solution for this is Google's gRPC.
+A widely used solution for this is Google's gRPC so let's take a look at gRPC implementations for Go and Rust.
+
+On https://www.crates.io[crates.io] you can find multiple crates (Rust's version of packages/libraries) that offer gRPC implementations. The most promising one at the time seems to be https://crates.io/crates/tonic[tonic] because it has the highest number of all-time and recent downloads.
+
+## Asynchronous Programming
 
 ## Available Frameworks  
 

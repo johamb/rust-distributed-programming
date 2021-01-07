@@ -1,0 +1,13 @@
+service NotesExample {
+    rpc GetNoteByTitle(string) returns (Note) {}
+
+    rpc ListNotesByAuthor(string) returns (stream Note) {}
+
+    rpc AddNotes(stream Note) returns (Confirmation) {}
+}
+
+message Note {
+    string title = 1;
+    string content = 2;
+    string author = 3;
+}
