@@ -21,3 +21,11 @@ rand = "0.7"
 
 [build-dependencies]
 tonic-build = "0.3"
+
+[[bin]]
+name = "noticeboard-server"
+path = "src/server.rs"
+
+[[bin]]
+name = "noticeboard-client"
+path = "src/client.rs"
