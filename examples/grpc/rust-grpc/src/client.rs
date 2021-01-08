@@ -4,16 +4,17 @@ pub mod notes {
 
 use notes::noticeboard_client::NoticeboardClient;
 use notes::{Author, Note, Title};
-use tonic::Request;
-use tonic::transport::Channel;
 use std::error::Error;
+use tonic::transport::Channel;
+use tonic::Request;
 
 async fn get_notes_by_author(
     client: &mut NoticeboardClient<Channel>,
+    author_mail: &str
 ) -> Result<(), Box<dyn Error>> {
     let author = Author {
-        nickname: "Hans".to_string(),
-        mail: "hans@gmail.com".to_string(),
+        nickname: "".to_string(),
+        mail: author_mail.to_string(),
     };
 
     let mut stream = client
@@ -39,6 +40,9 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         .await?;
 
     println!("RESPONSE = {:?}", response);
+
+    println!("\n Streaming notes from the server:");
+    get_notes_by_author(&mut client, "hans@gmail.com").await?;
 
     Ok(())
 }
