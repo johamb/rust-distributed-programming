@@ -12,6 +12,19 @@ A widely used solution for this is Google's gRPC so let's take a look at gRPC im
 
 On https://www.crates.io[crates.io] you can find multiple crates (Rust's version of packages/libraries) that offer gRPC implementations. The most promising one at the time seems to be https://crates.io/crates/tonic[tonic] because it has the highest number of all-time and recent downloads.
 
+The directory `examples/grpc/rust-grpc` contains a working example for a small gRPC service with a client and server built with tonic. What's nice about tonic is that it supports protobuf code generation. This means that you can supply your own protobuf source files and let tonic generate Rust code that contains `structs` that represent the protobuf messages and `traits` for implementing the gRPC service in your server and client.
+
+In this example the file link:examples/grpc/rust-grpc/notes.proto[notes.proto] contains the protobuf definition for the noticeboard service.
+To generate Rust code for implementing the service all we need to do is add a file called `build.rs` in the root directory with the following content:
+[source,rust]
+----
+fn main() {
+    tonic_build::compile_protos("proto/notes.proto")
+        .unwrap_or_else(|e| panic!("Failed to compile protos {:?}", e));
+}
+----
+Now we can run `cargo build` to compile our code.
+
 ## Asynchronous Programming
 
 ## Available Frameworks  
