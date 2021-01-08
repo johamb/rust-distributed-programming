@@ -28,6 +28,10 @@ Now we can run `cargo build` to compile our code.
 For Go:
 compile protobuf `protoc --proto_path=../proto --go_out=plugins=grpc:build/gen ../proto/notes.proto`
 
+Some notes:
+
+- generating the code from protobuf definitions is actually easier with rust and tonic because you only one command whereas with go you have to invoke protoc seperately
+
 ## Asynchronous Programming
 
 ## Available Frameworks  
