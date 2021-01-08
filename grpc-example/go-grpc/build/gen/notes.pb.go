@@ -7,6 +7,10 @@
 package notes
 
 import (
+	context "context"
+	grpc "google.golang.org/grpc"
+	codes "google.golang.org/grpc/codes"
+	status "google.golang.org/grpc/status"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	reflect "reflect"
@@ -303,4 +307,148 @@ func file_notes_proto_init() {
 	file_notes_proto_rawDesc = nil
 	file_notes_proto_goTypes = nil
 	file_notes_proto_depIdxs = nil
+}
+
+// Reference imports to suppress errors if they are not otherwise used.
+var _ context.Context
+var _ grpc.ClientConnInterface
+
+// This is a compile-time assertion to ensure that this generated file
+// is compatible with the grpc package it is being compiled against.
+const _ = grpc.SupportPackageIsVersion6
+
+// NoticeboardClient is the client API for Noticeboard service.
+//
+// For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
+type NoticeboardClient interface {
+	GetNoteByTitle(ctx context.Context, in *Title, opts ...grpc.CallOption) (*Note, error)
+	ListNotesByAuthor(ctx context.Context, in *Author, opts ...grpc.CallOption) (Noticeboard_ListNotesByAuthorClient, error)
+}
+
+type noticeboardClient struct {
+	cc grpc.ClientConnInterface
+}
+
+func NewNoticeboardClient(cc grpc.ClientConnInterface) NoticeboardClient {
+	return &noticeboardClient{cc}
+}
+
+func (c *noticeboardClient) GetNoteByTitle(ctx context.Context, in *Title, opts ...grpc.CallOption) (*Note, error) {
+	out := new(Note)
+	err := c.cc.Invoke(ctx, "/notes.Noticeboard/GetNoteByTitle", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *noticeboardClient) ListNotesByAuthor(ctx context.Context, in *Author, opts ...grpc.CallOption) (Noticeboard_ListNotesByAuthorClient, error) {
+	stream, err := c.cc.NewStream(ctx, &_Noticeboard_serviceDesc.Streams[0], "/notes.Noticeboard/ListNotesByAuthor", opts...)
+	if err != nil {
+		return nil, err
+	}
+	x := &noticeboardListNotesByAuthorClient{stream}
+	if err := x.ClientStream.SendMsg(in); err != nil {
+		return nil, err
+	}
+	if err := x.ClientStream.CloseSend(); err != nil {
+		return nil, err
+	}
+	return x, nil
+}
+
+type Noticeboard_ListNotesByAuthorClient interface {
+	Recv() (*Note, error)
+	grpc.ClientStream
+}
+
+type noticeboardListNotesByAuthorClient struct {
+	grpc.ClientStream
+}
+
+func (x *noticeboardListNotesByAuthorClient) Recv() (*Note, error) {
+	m := new(Note)
+	if err := x.ClientStream.RecvMsg(m); err != nil {
+		return nil, err
+	}
+	return m, nil
+}
+
+// NoticeboardServer is the server API for Noticeboard service.
+type NoticeboardServer interface {
+	GetNoteByTitle(context.Context, *Title) (*Note, error)
+	ListNotesByAuthor(*Author, Noticeboard_ListNotesByAuthorServer) error
+}
+
+// UnimplementedNoticeboardServer can be embedded to have forward compatible implementations.
+type UnimplementedNoticeboardServer struct {
+}
+
+func (*UnimplementedNoticeboardServer) GetNoteByTitle(context.Context, *Title) (*Note, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetNoteByTitle not implemented")
+}
+func (*UnimplementedNoticeboardServer) ListNotesByAuthor(*Author, Noticeboard_ListNotesByAuthorServer) error {
+	return status.Errorf(codes.Unimplemented, "method ListNotesByAuthor not implemented")
+}
+
+func RegisterNoticeboardServer(s *grpc.Server, srv NoticeboardServer) {
+	s.RegisterService(&_Noticeboard_serviceDesc, srv)
+}
+
+func _Noticeboard_GetNoteByTitle_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(Title)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(NoticeboardServer).GetNoteByTitle(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/notes.Noticeboard/GetNoteByTitle",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(NoticeboardServer).GetNoteByTitle(ctx, req.(*Title))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Noticeboard_ListNotesByAuthor_Handler(srv interface{}, stream grpc.ServerStream) error {
+	m := new(Author)
+	if err := stream.RecvMsg(m); err != nil {
+		return err
+	}
+	return srv.(NoticeboardServer).ListNotesByAuthor(m, &noticeboardListNotesByAuthorServer{stream})
+}
+
+type Noticeboard_ListNotesByAuthorServer interface {
+	Send(*Note) error
+	grpc.ServerStream
+}
+
+type noticeboardListNotesByAuthorServer struct {
+	grpc.ServerStream
+}
+
+func (x *noticeboardListNotesByAuthorServer) Send(m *Note) error {
+	return x.ServerStream.SendMsg(m)
+}
+
+var _Noticeboard_serviceDesc = grpc.ServiceDesc{
+	ServiceName: "notes.Noticeboard",
+	HandlerType: (*NoticeboardServer)(nil),
+	Methods: []grpc.MethodDesc{
+		{
+			MethodName: "GetNoteByTitle",
+			Handler:    _Noticeboard_GetNoteByTitle_Handler,
+		},
+	},
+	Streams: []grpc.StreamDesc{
+		{
+			StreamName:    "ListNotesByAuthor",
+			Handler:       _Noticeboard_ListNotesByAuthor_Handler,
+			ServerStreams: true,
+		},
+	},
+	Metadata: "notes.proto",
 }

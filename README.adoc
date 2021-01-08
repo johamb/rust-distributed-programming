@@ -25,6 +25,9 @@ fn main() {
 ----
 Now we can run `cargo build` to compile our code.
 
+For Go:
+compile protobuf `protoc --proto_path=../proto --go_out=plugins=grpc:build/gen ../proto/notes.proto`
+
 ## Asynchronous Programming
 
 ## Available Frameworks  
