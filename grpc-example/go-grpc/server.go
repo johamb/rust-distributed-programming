@@ -46,7 +46,34 @@ func main() {
 		log.Fatalf("failed to listen: %v", err)
 	}
 
-	s := Server{}
+	s := Server{
+		notes: []notes.Note{
+            notes.Note {
+                Title: "Hello",
+                Content: "This note says hello.",
+                Author: &notes.Author {
+                    Nickname: "Hans",
+                    Mail: "hans@gmail.com",
+                },
+            },
+            notes.Note {
+                Title: "Goodbye",
+                Content: "This note says goodbye.",
+                Author: &notes.Author {
+                    Nickname: "Hans",
+                    Mail: "hans@gmail.com",
+                },
+            },
+            notes.Note {
+                Title: "What up",
+                Content: "This note says what up.",
+                Author: &notes.Author {
+                    Nickname: "Lisa",
+                    Mail: "lisa@gmail.com",
+                },
+            },
+        },
+	}
 
 	grpcServer := grpc.NewServer()
 
