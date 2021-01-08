@@ -6,8 +6,6 @@ service Noticeboard {
     rpc GetNoteByTitle(Title) returns (Note) {}
 
     rpc ListNotesByAuthor(Author) returns (stream Note) {}
-
-    rpc AddNotes(stream Note) returns (google.protobuf.Empty) {}
 }
 
 message Note {

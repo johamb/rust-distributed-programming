@@ -17,12 +17,12 @@ pub mod notes {
 }
 
 #[derive(Debug)]
-pub struct NoteService {
-    notes: Vec<Note>,
+pub struct NoticeboardService {
+    notes: Arc<Vec<Note>>,
 }
 
 #[tonic::async_trait]
-impl Noticeboard for NoteService {
+impl Noticeboard for NoticeboardService {
     async fn get_note_by_title(&self, request: Request<Title>) -> Result<Response<Note>, Status> {
         for note in &self.notes[..] {
             if note.title == request.get_ref().title {
@@ -57,29 +57,44 @@ impl Noticeboard for NoteService {
 
         Ok(Response::new(rx))
     }
-
-    // vlt ersetzen durch add_note
-    async fn add_notes(
-        &self,
-        request: Request<tonic::Streaming<Note>>,
-    ) -> Result<Response<()>, Status> {
-        let mut stream = request.into_inner();
-
-        while let Some(note) = stream.message().await? {
-            // let note = note?;
-            // let mut noteExists = false;
-            // for existingNote in &self.notes[..] {
-            //     if existingNote.title == &note.title {
-            //         noteExists = true;
-            //     }
-            // }
-            &self.notes.push(note);
-        }
-
-        Ok(Response::new(()))
-    }
 }
 
-fn main() {
-    println!("Hello, world!");
+#[tokio::main]
+async fn main() -> Result<(), Box<dyn std::error::Error>> {
+    let addr = "[::1]:10000".parse().unwrap();
+
+    let noticeboard = NoticeboardService {
+        notes: Arc::new(vec![
+            Note {
+                title: "Hello".to_string(),
+                content: "This note says hello.".to_string(),
+                author: Some(Author {
+                    nickname: "Hans".to_string(),
+                    mail: "hans@gmail.com".to_string(),
+                }),
+            },
+            Note {
+                title: "Goodbye".to_string(),
+                content: "This note says goodbye.".to_string(),
+                author: Some(Author {
+                    nickname: "Hans".to_string(),
+                    mail: "hans@gmail.com".to_string(),
+                }),
+            },
+            Note {
+                title: "What up".to_string(),
+                content: "This note says what up.".to_string(),
+                author: Some(Author {
+                    nickname: "Lisa".to_string(),
+                    mail: "lisa@gmail.com".to_string(),
+                }),
+            },
+        ]),
+    };
+
+    let svc = NoticeboardServer::new(noticeboard);
+
+    Server::builder().add_service(svc).serve(addr).await?;
+
+    Ok(())
 }
