@@ -31,7 +31,7 @@ async fn get_notes_by_author(
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
-    let mut client = NoticeboardClient::connect("http://[::1]:10000").await?;
+    let mut client = NoticeboardClient::connect("http://[::1]:9000").await?;
 
     let response = client
         .get_note_by_title(Request::new(Title {

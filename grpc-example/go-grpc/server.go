@@ -18,13 +18,25 @@ type Server struct {
 
 func (s *Server) GetNoteByTitle(ctx context.Context, title *notes.Title) (*notes.Note, error) {
 
-	for _, note := range notes {
-		if (note.title == title) {
-			return note, nil
+	for _, note := range s.notes {
+		if (note.Title == title.Title) {
+			return &note, nil
 		}
 	}
 
 	return nil, errors.New("note not found")
+}
+
+func (s *Server) ListNotesByAuthor(author *notes.Author, srv notes.Noticeboard_ListNotesByAuthorServer) error {
+	
+	for _, note := range s.notes {
+		if (note.Author.Mail == author.Mail) {
+			srv.Send(&note)
+		}
+	}
+
+	return nil
+
 }
 
 func main() {

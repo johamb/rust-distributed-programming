@@ -61,7 +61,7 @@ impl Noticeboard for NoticeboardService {
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
-    let addr = "[::1]:10000".parse().unwrap();
+    let addr = "[::1]:9000".parse().unwrap();
 
     let noticeboard = NoticeboardService {
         notes: Arc::new(vec![
