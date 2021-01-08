@@ -5,6 +5,7 @@ import (
 	"log"
 	"net"
 	"errors"
+	"time"
 
 	"./build/gen"
 
@@ -33,6 +34,8 @@ func (s *Server) ListNotesByAuthor(author *notes.Author, srv notes.Noticeboard_L
 		if (note.Author.Mail == author.Mail) {
 			srv.Send(&note)
 		}
+		// uncomment this to see that streaming the notes actually works
+		// time.Sleep(2 * time.Second)
 	}
 
 	return nil
