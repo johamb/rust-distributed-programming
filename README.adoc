@@ -58,13 +58,30 @@ The `/grpc-example/proto` directory contains the protobuf definition file for th
 Since both implementations of the service use the same protobuf definition, the respective client and server should be able to communicate with each other interchangeably. 
 That means you can run the Rust client with the Go server and vice versa.
 
-The 
-On https://www.crates.io[crates.io] you can find multiple crates (Rust's version of packages/libraries) that offer gRPC implementations. The most promising one at the time seems to be https://crates.io/crates/tonic[tonic] because it has the highest number of all-time and recent downloads.
+Go of course has an https://github.com/grpc/grpc-go[official implementation of gRPC] so that's what i used.
+For Rust i had to look around a bit to find a suitable implementation.
+Luckily, Rust has a very convenient package registry with https://www.crates.io[crates.io].
 
-The directory `examples/grpc/rust-grpc` contains a working example for a small gRPC service with a client and server built with tonic. What's nice about tonic is that it supports protobuf code generation. This means that you can supply your own protobuf source files and let tonic generate Rust code that contains `structs` that represent the protobuf messages and `traits` for implementing the gRPC service in your server and client.
+On crates.io you can find multiple crates (Rust's version of packages/libraries) that offer gRPC implementations. The most promising one at the time seems to be https://crates.io/crates/tonic[tonic] because it has the highest number of all-time and recent downloads. This is the one i decided to use.
 
-In this example the file link:examples/grpc/rust-grpc/notes.proto[notes.proto] contains the protobuf definition for the noticeboard service.
-To generate Rust code for implementing the service all we need to do is add a file called `build.rs` in the root directory with the following content:
+=== Setup - Protobuf Code Generation
+
+What's nice about working with Protobuf is that the compiler `protoc` can generate code for different languages based on your service definition that helps implement the service in the respective language.
+This way you don't have to worry about things like serializing your data structures as Protobuf messages.
+
+==== Code Generation in Rust
+
+Tonic offers the additional package `tonic-build` which can handle the code generation automatically.
+This way you don't need to invoke `protoc` seperately and can just use Rust's own build tool Cargo.
+To generate Rust code for implementing the service all we need to do is add `tonic-build` as a build dependency in the `Cargo.toml` configuration file:
+
+[source,rust]
+----
+[build-dependencies]
+tonic-build = "0.3"
+----
+
+and an additional file called `build.rs` in the root directory with the following content:
 [source,rust]
 ----
 fn main() {
@@ -72,6 +89,7 @@ fn main() {
         .unwrap_or_else(|e| panic!("Failed to compile protos {:?}", e));
 }
 ----
+
 Now we can run `cargo build` to compile our code.
 
 For Go:
