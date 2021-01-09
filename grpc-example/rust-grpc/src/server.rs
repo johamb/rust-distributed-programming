@@ -11,7 +11,8 @@ pub mod notes {
     // You need to pass the name of the package declared in the .proto file here. In this case: notes.
     tonic::include_proto!("notes");
 }
-
+ 
+// #[...] is an attribute. derive(Debug) causes the compiler to auto-generate an implementation for this trait
 #[derive(Debug)]
 pub struct NoticeboardService {
     notes: Arc<Vec<Note>>,
