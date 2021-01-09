@@ -54,6 +54,9 @@ This of course means that Rust offers better memory efficiency overall but it al
 One thing that is pretty much inevitable when it comes to distributed systems programming is to have some form of messaging solution so that individual computing nodes can exchange serialized data.
 
 A widely used solution for this is Google's https://grpc.io/[gRPC] so let's take a look at gRPC implementations for Go and Rust. For demonstration purposes, i built a small noticeboard service with a server that hosts notes which the client can query by title or author. You can find the code in the `/grpc-example` directory.
+The `/grpc-example/proto` directory contains the protobuf definition file for the gRPC service.
+Since both implementations of the service use the same protobuf definition, the respective client and server should be able to communicate with each other interchangeably. 
+That means you can run the Rust client with the Go server and vice versa.
 
 The 
 On https://www.crates.io[crates.io] you can find multiple crates (Rust's version of packages/libraries) that offer gRPC implementations. The most promising one at the time seems to be https://crates.io/crates/tonic[tonic] because it has the highest number of all-time and recent downloads.
