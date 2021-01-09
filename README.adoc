@@ -36,6 +36,28 @@ Some notes:
 
 ## Available Frameworks  
 
+When it comes to building large distributed systems that are suited for production use in an enterprise environment, most of the time you probably don't want to build everything from scratch. So it makes sense to choose a framework or platform to build upon. Ideally, this should be one that is already being used by many other people and has turned out to be tried and true.
+
+### Frameworks for Go
+|===
+|Name |Description 
+
+|test
+|test
+|TEst
+
+|===
+
+### Frameworks for Rust
+|===
+|Name |Description 
+
+|test
+|test
+|TEst
+
+|===
+
 ## Additional Thoughts
 
 One central aspect of Rust's philosophy is its focus on performance.
