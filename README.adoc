@@ -6,6 +6,26 @@ The purpose of this project is to compare the programming languages Rust and Go 
 
 ## General Aspects of Rust and Go
 
+Rust and Go are in many ways quite similar but they do have some striking differences.
+Regarding syntax, both languages are inspired by C and C++ and simple code snippets can sometimes look almost identical:
+
+[source,rust]
+----
+fn main(){
+   println!("This says Hello World in Rust!");
+}
+----
+
+[source,go]
+----
+func main() { 
+    fmt.Println("This says Hello World in Go!") 
+} 
+----
+
+Both languages have a strong, static type system that supports type inference.
+When it comes to programming paradigms, both languages follow a mixed paradigm approach that is mostly imperative.
+Rust and Go are both compiled languages with a compiler that supports cross compilation.
 
 
 |===
