@@ -26,7 +26,8 @@ func main() {
 Both languages have a strong, static type system that supports type inference.
 When it comes to programming paradigms, both languages follow a mixed paradigm approach that is mostly imperative.
 Rust and Go are both compiled languages with a compiler that supports cross compilation.
-
+The most important technical difference between the two is that Go has a garbage collector whereas Rust does not.
+This of course means that Rust offers better memory efficiency overall but it also adds additional complexity when coding in Rust as you have deal with Rust's https://doc.rust-lang.org/book/ch04-01-what-is-ownership.html[ownership system].
 
 |===
 |Language |Rust |Go 
