@@ -6,6 +6,8 @@ The purpose of this project is to compare the programming languages Rust and Go 
 
 ## General Aspects of Rust and Go
 
+
+
 |===
 |Language |Rust |Go 
 
@@ -147,19 +149,3 @@ __"The combination of Rust and Arrow provides excellent memory efficiency and me
 
 ## Summary
 
-
-WARNING: Remove this
-
-### Asciidocschnipsel:
- - a
- - b
- - c
-
-|===
-|Name |Go |Rust
-
-|test
-|test
-|TEst
-
-|===
