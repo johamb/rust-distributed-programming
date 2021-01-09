@@ -1,9 +1,5 @@
-use std::collections::HashMap;
-use std::pin::Pin;
 use std::sync::Arc;
-use std::time::Instant;
 
-use futures_core::Stream;
 use tokio::sync::mpsc;
 use tonic::transport::Server;
 use tonic::{Request, Response, Status};
@@ -23,6 +19,7 @@ pub struct NoticeboardService {
 
 #[tonic::async_trait]
 impl Noticeboard for NoticeboardService {
+
     async fn get_note_by_title(&self, request: Request<Title>) -> Result<Response<Note>, Status> {
         for note in &self.notes[..] {
             if note.title == request.get_ref().title {
@@ -38,7 +35,6 @@ impl Noticeboard for NoticeboardService {
         &self,
         request: Request<Author>,
     ) -> Result<Response<Self::ListNotesByAuthorStream>, Status> {
-        // TODO: read docs for mpsc::channel
         let (mut tx, rx) = mpsc::channel(4);
         let notes = self.notes.clone();
 
