@@ -1,10 +1,13 @@
-# Comparing Distributed Programming in Rust and Go
+= Comparing Distributed Programming in Rust and Go
 
-## Overview
+== Overview
 
 The purpose of this project is to compare the programming languages Rust and Go regarding their capabilities and characteristics for distributed programming.
 
-## General Aspects of Rust and Go
+First, we will take a look at the general characteristic of Rust and Go. 
+If you are interested in more technical details head over to <<Distributed Programming in Rust and Go>> where we will implement a gRPC Server and Client in Rust and Go.
+
+== General Aspects of Rust and Go
 
 Rust and Go are in many ways quite similar but they do have some striking differences.
 Regarding syntax, both languages are inspired by C and C++ and simple code snippets can sometimes look almost identical:
@@ -46,11 +49,11 @@ This of course means that Rust offers better memory efficiency overall but it al
 
 |===
 
-## Serialization and Messaging
+== Distributed Programming in Rust and Go 
 
 One thing that is pretty much inevitable when it comes to distributed systems programming is to have some form of messaging solution so that individual computing nodes can exchange serialized data.
 
-A widely used solution for this is Google's gRPC so let's take a look at gRPC implementations for Go and Rust.
+A widely used solution for this is Google's https://grpc.io/[gRPC] so let's take a look at gRPC implementations for Go and Rust.
 
 On https://www.crates.io[crates.io] you can find multiple crates (Rust's version of packages/libraries) that offer gRPC implementations. The most promising one at the time seems to be https://crates.io/crates/tonic[tonic] because it has the highest number of all-time and recent downloads.
 
@@ -74,13 +77,13 @@ Some notes:
 
 - generating the code from protobuf definitions is actually easier with rust and tonic because you only one command whereas with go you have to invoke protoc seperately
 
-## Asynchronous Programming
+== Asynchronous Programming
 
-## Available Frameworks  
+== Available Frameworks  
 
 When it comes to building large distributed systems that are suited for production use in an enterprise environment, most of the time you probably don't want to build everything from scratch. So it makes sense to choose a framework or platform to build upon. Ideally, this should be one that is already being used by many other people and has turned out to be tried and true.
 
-### Frameworks for Rust
+=== Frameworks for Rust
 
 [cols="1,9a,1"]
 |===
@@ -120,7 +123,7 @@ When it comes to building large distributed systems that are suited for producti
 
 |===
 
-### Frameworks for Go
+=== Frameworks for Go
 
 [cols="1,9a,1"]
 |===
@@ -159,7 +162,7 @@ When it comes to building large distributed systems that are suited for producti
 
 |===
 
-## Additional Thoughts
+== Additional Thoughts
 
 One central aspect of Rust's philosophy is its focus on performance.
 Although better low-level performance is in general a good thing, this particular advantage of Rust might not be as useful when it comes to building distributed systems. Since the performance of a distributed system as a whole tends to be constrained more by network latency than by the execution time of individual tasks.
@@ -168,5 +171,5 @@ On the other hand, the fact that Rust offers very good memory efficiency means t
 
 __"The combination of Rust and Arrow provides excellent memory efficiency and memory usage can be 5x - 10x lower than Apache Spark in some cases"__footnote:[https://github.com/ballista-compute/ballista#how-does-this-compare-to-apache-spark]
 
-## Summary
+== Summary
 
