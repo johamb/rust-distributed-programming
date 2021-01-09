@@ -38,45 +38,67 @@ Some notes:
 
 When it comes to building large distributed systems that are suited for production use in an enterprise environment, most of the time you probably don't want to build everything from scratch. So it makes sense to choose a framework or platform to build upon. Ideally, this should be one that is already being used by many other people and has turned out to be tried and true.
 
-### Frameworks for Go
+### Frameworks for Rust
 
-[cols="1,9a"]
+[cols="1,9a,1"]
 |===
-|Name |Description 
+|Name |Description |Stars on GitHubfootnoteref:[1,as of 2021-01-09]
 
 |https://github.com/ballista-compute/ballista[Ballista]
 |test
+|
 
 |https://github.com/constellation-rs/amadeus[Amadeus]
+|
 |
 
 |https://github.com/fede1024/rust-rdkafka[rust-rdkafka]
 |
+|
 
 |https://github.com/actix/actix[Actix]
+|
 |
 
 |https://github.com/tokio-rs/tokio[Tokio]
 |
+|
 
 |===
 
-### Frameworks for Rust
+### Frameworks for Go
 
-[cols="1,9a"]
+[cols="1,9a,1"]
 |===
-|Name |Description 
+|Name |Description |Stars on GitHubfootnoteref:[1,as of 2021-01-09]
 
 |https://github.com/asim/go-micro[go-micro]
 |test
+|15.2k
 
-|https://github.com/hashicorp/serf[serf]
+|https://github.com/emitter-io/emitter[Emitter]
 |
+- distributed publish/subscribe platform using MQTT
+- Fulfils the high-availability and partition tolerance criteria of the CAP theorem
+|2.7k
 
 |https://github.com/lni/dragonboat[Dragonboat]
 | 
 - high performance multi-group Raft consensus library
 - claims to be easy to use and handle all technical difficulties of the Raft protocol
+|3.4k
+
+|https://github.com/chrislusf/glow[glow]
+|
+- library for scalable parallel and distributed data processing
+- functional aproach using map reduce
+|2.9k
+
+|https://github.com/chrislusf/gleam[gleam]
+|
+- high performance and efficient distributed execution system
+- also using map reduce funcionality
+|2.7k
 
 |===
 
