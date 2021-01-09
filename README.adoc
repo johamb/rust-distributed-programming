@@ -4,6 +4,25 @@
 
 The purpose of this project is to compare the programming languages Rust and Go regarding their capabilities and characteristics for distributed programming.
 
+## General Aspects of Rust and Go
+
+|===
+|Language |Rust |Go 
+
+| Garbage collector
+| No GC
+| Has GC
+
+| Type system
+| static
+| static
+
+| Cross compilation
+| supported
+| supported
+
+|===
+
 ## Serialization and Messaging
 
 One thing that is pretty much inevitable when it comes to distributed systems programming is to have some form of messaging solution so that individual computing nodes can exchange serialized data.
