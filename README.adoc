@@ -81,7 +81,7 @@ To generate Rust code for implementing the service all we need to do is add `ton
 tonic-build = "0.3"
 ----
 
-and an additional file called `build.rs` in the root directory with the following content:
+and an additional file called `build.rs` in the ``grpc-example/rust-grpc`` directory with the following content:
 [source,rust]
 ----
 fn main() {
@@ -91,15 +91,15 @@ fn main() {
 ----
 
 Now we can run `cargo build` in the `/grpc-example/rust-grpc` directory to compile our code.
+The generated code will appear inside the `/grpc-example/rust-grpc/target/debug/build/` directory, look for a folder called `rust-grpc-...`.
 
-For Go:
-compile protobuf `protoc --proto_path=../proto --go_out=plugins=grpc:build/gen ../proto/notes.proto`
+==== Code Generation in Go
 
-Some notes:
+The process of generating the code for Go is actually a bit more tedious since you have to use `protoc` directly.
+That's why i included the generated code in the repository under `grpc-example/go-grpc/build/gen`.
 
-- generating the code from protobuf definitions is actually easier with rust and tonic because you only one command whereas with go you have to invoke protoc seperately
-
-== Asynchronous Programming
+Provided you have installed `protoc` and set everything up correctly (https://developers.google.cn/protocol-buffers/docs/reference/go-generated[find out how to do that here]), you should be able to generate the code with this command:
+`protoc --proto_path=../proto --go_out=plugins=grpc:build/gen ../proto/notes.proto`
 
 == Available Frameworks  
 
