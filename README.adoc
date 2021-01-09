@@ -85,12 +85,12 @@ and an additional file called `build.rs` in the root directory with the followin
 [source,rust]
 ----
 fn main() {
-    tonic_build::compile_protos("proto/notes.proto")
+    tonic_build::compile_protos("../proto/notes.proto") // make sure to provide the correct path
         .unwrap_or_else(|e| panic!("Failed to compile protos {:?}", e));
 }
 ----
 
-Now we can run `cargo build` to compile our code.
+Now we can run `cargo build` in the `/grpc-example/rust-grpc` directory to compile our code.
 
 For Go:
 compile protobuf `protoc --proto_path=../proto --go_out=plugins=grpc:build/gen ../proto/notes.proto`
