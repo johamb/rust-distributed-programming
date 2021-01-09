@@ -42,9 +42,20 @@ When it comes to building large distributed systems that are suited for producti
 |===
 |Name |Description 
 
+|https://github.com/ballista-compute/ballista[Ballista]
 |test
-|test
-|TEst
+
+|https://github.com/constellation-rs/amadeus[Amadeus]
+|
+
+|https://github.com/fede1024/rust-rdkafka[rust-rdkafka]
+|
+
+|https://github.com/actix/actix[Actix]
+|
+
+|https://github.com/tokio-rs/tokio[Tokio]
+|
 
 |===
 
@@ -54,7 +65,6 @@ When it comes to building large distributed systems that are suited for producti
 
 |test
 |test
-|TEst
 
 |===
 
