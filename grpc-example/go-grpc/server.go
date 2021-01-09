@@ -5,7 +5,7 @@ import (
 	"log"
 	"net"
 	"errors"
-	"time"
+	//"time"
 
 	"./build/gen"
 
@@ -13,11 +13,11 @@ import (
 	"golang.org/x/net/context"
 )
 
-type Server struct {
+type NoticeboardService struct {
 	notes []notes.Note
 }
 
-func (s *Server) GetNoteByTitle(ctx context.Context, title *notes.Title) (*notes.Note, error) {
+func (s *NoticeboardService) GetNoteByTitle(ctx context.Context, title *notes.Title) (*notes.Note, error) {
 
 	for _, note := range s.notes {
 		if (note.Title == title.Title) {
@@ -28,7 +28,7 @@ func (s *Server) GetNoteByTitle(ctx context.Context, title *notes.Title) (*notes
 	return nil, errors.New("note not found")
 }
 
-func (s *Server) ListNotesByAuthor(author *notes.Author, srv notes.Noticeboard_ListNotesByAuthorServer) error {
+func (s *NoticeboardService) ListNotesByAuthor(author *notes.Author, srv notes.Noticeboard_ListNotesByAuthorServer) error {
 	
 	for _, note := range s.notes {
 		if (note.Author.Mail == author.Mail) {
@@ -49,7 +49,7 @@ func main() {
 		log.Fatalf("failed to listen: %v", err)
 	}
 
-	s := Server{
+	s := NoticeboardService{
 		notes: []notes.Note{
             notes.Note {
                 Title: "Hello",
