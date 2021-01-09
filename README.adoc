@@ -44,25 +44,37 @@ When it comes to building large distributed systems that are suited for producti
 |===
 |Name |Description |Stars on GitHubfootnoteref:[1,as of 2021-01-09]
 
-|https://github.com/ballista-compute/ballista[Ballista]
-|test
-|
-
-|https://github.com/constellation-rs/amadeus[Amadeus]
-|
-|
-
-|https://github.com/fede1024/rust-rdkafka[rust-rdkafka]
-|
-|
-
 |https://github.com/actix/actix[Actix]
 |
-|
+- framework for using an https://en.wikipedia.org/wiki/Actor_model[actor model] in Rust
+- offer asynchronous message handling via futures
+|5.9k
 
 |https://github.com/tokio-rs/tokio[Tokio]
 |
+- asynchronous runtime for rust
+- promises very high performance and scalability
+|10.7k
+
+|https://github.com/ballista-compute/ballista[Ballista]
 |
+- also offers support for Python and Java as well as connectors for JDBC and Spark
+- promises high memory efficiency, superior to Spark's
+- based on the memory model of https://arrow.apache.org/[Apache Arrow]
+|971
+
+|https://github.com/constellation-rs/amadeus[Amadeus]
+|
+- distributed data processing using streams
+- supports various data formats and database systems for importing data (e.g. CSV, JSON, S3, Postgres)
+- supposed to offer a particularly easy approach to distributed data processing
+|213
+
+|https://github.com/fede1024/rust-rdkafka[rust-rdkafka]
+|
+- asynchronous client for https://kafka.apache.org/[Apache Kafka]
+- wrapper for https://github.com/edenhill/librdkafka[librdkafka] (Kafka client for C/C++)
+|595
 
 |===
 
@@ -73,7 +85,10 @@ When it comes to building large distributed systems that are suited for producti
 |Name |Description |Stars on GitHubfootnoteref:[1,as of 2021-01-09]
 
 |https://github.com/asim/go-micro[go-micro]
-|test
+|
+- broadly diversified framework for distributed systems development offering many different features
+- supports RPC based communication
+- promises to provide sane defaults to enable quick productivity
 |15.2k
 
 |https://github.com/emitter-io/emitter[Emitter]
