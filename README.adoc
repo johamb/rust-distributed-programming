@@ -135,6 +135,8 @@ func (s *NoticeboardService) GetNoteByTitle(ctx context.Context, title *noticebo
 }
 ----
 
+Overall, these implementations are almost identical except the Go implementation will send an error message in case no note can be found whereas the Rust implementation will just send an empty note because tonic's `Response::new()` only accepts
+
 The RPC method `ListNotesByAuthor` is a bit more complicated since it uses _server side streaming_.
 That means that instead of returning a single message as the response, the server to the client's request with a stream of multiple messages.
 

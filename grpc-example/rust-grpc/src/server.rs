@@ -1,9 +1,10 @@
 use std::sync::Arc;
 use core::time::Duration;
+use std::io::{Error, ErrorKind};
 
 use tokio::sync::mpsc;
 use tonic::transport::Server;
-use tonic::{Request, Response, Status};
+use tonic::{Request, Response, Status, Code};
 
 use notes::noticeboard_server::{Noticeboard, NoticeboardServer};
 use notes::{Author, Note, Title};
@@ -28,7 +29,7 @@ impl Noticeboard for NoticeboardService {
                 return Ok(Response::new(note.clone()));
             }
         }
-        Ok(Response::new(Note::default()))
+        Err(Status::new(Code::NotFound, "Note not found"))
     }
 
     type ListNotesByAuthorStream = mpsc::Receiver<Result<Note, Status>>;
