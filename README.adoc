@@ -306,3 +306,10 @@ __"The combination of Rust and Arrow provides excellent memory efficiency and me
 As we have seen, Rust and Go offer very similar functionality when it comes to building distributed systems using gRPC. What makes Go stand out is its excellent support for asynchronous programming out of the box. Using goroutines and channels is very convenient. But you can achieve similar results in Rust if you use the third party package tokio.
 
 Regarding gRPC support, tonic is an excellent implementation that is easy to use and can stand up to Google's official gRPC implementation for go. What's especially good about using Rust and tonic is that you can handle protobuf code generation directly with Rust's own build tool Cargo with minimal configuration effort.
+
+The one aspect that seperates Go from Rust for distributed programming is what i call its "community ecosystem".
+With a plethora of libraries, frameworks and platforms available, Go can hardly be beaten as the go to language for building distributed systems on a solid foundation. From this point of view, Rust is more suited for building low level systems from the ground up because there are just not as many projects to build upon.
+
+In my personal opinion, the bottom line here is that Go is generally a better choice for distributed programming because it offers everything you need and there are a lot of resources out there to make your life easier.
+But Rust offers exceptional performance and memory efficiency so if you care more about high performance, choose Rust.
+In the end you can't really go wrong with either language and you should choose the one that suits your personal preferences.
