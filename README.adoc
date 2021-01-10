@@ -121,6 +121,20 @@ async fn get_note_by_title(&self, request: Request<Title>) -> Result<Response<No
 }
 ----
 
+The implementation in Go looks like this:
+
+[source,go]
+----
+func (s *NoticeboardService) GetNoteByTitle(ctx context.Context, title *noticeboard.Title) (*noticeboard.Note, error) {
+	for _, note := range s.noticeboard {
+		if (note.Title == title.Title) {
+			return &note, nil
+		}
+	}
+	return nil, errors.New("note not found")
+}
+----
+
 - async beispiel: client go channel, client rust tokio
 - tokio mpsc: vergleichbar zu go channels
 - mpsc channel bei 1000+ Nachrichten -> buffer zu klein?
