@@ -39,7 +39,7 @@ func main() {
 		log.Fatalf("open stream error %v", err)
 	}
 
-	// this channel is used to tell the main thred when we are done
+	// this channel is used to tell the main thread when we are done
 	ch := make(chan bool)
 
 	go func() {

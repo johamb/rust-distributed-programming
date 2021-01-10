@@ -179,6 +179,27 @@ func (s *NoticeboardService) ListNotesByAuthor(author *noticeboard.Author, srv n
 
 As you can see, the code is a bit simpler in Go. That's because the `Noticeboard_ListNotesByAuthorServer` uses a https://pkg.go.dev/google.golang.org/grpc/#ServerStream[`ServerStream`]. Using the `Send` method, it is possible to send the notes to the stream one after another. In the Rust implementation it is necessary to spawn a second thread using the `tokio` package. This thread sends the notes to the main thread using a https://docs.rs/tokio/0.1.16/tokio/sync/mpsc/index.html[`tokio::sync::mpsc`] queue. An `mpsc` queue offers similar functionality to channels in Go.
 
+This approach for exchanging data between seperate threads is comparable to using a goroutine with a channel in Go.
+Consider this example from the Go client implementation:
+
+[source,go]
+----
+ch := make(chan bool)
+go func() {
+    for {
+        resp, err := stream.Recv()
+        if err == io.EOF {
+            ch <- true 
+            return
+        }
+        ...
+    }
+}()
+<-ch //wait until end of the stream is reached
+----
+
+As we have seen, Rust offers similar capabilities for asynchronous programming although you have to rely on a third party package. In this regard, Go offers better functionality out of the box and using channels and goroutines feels a bit more convenient because the syntax feels very natural.
+
 - async beispiel: client go channel, client rust tokio
 - tokio mpsc: vergleichbar zu go channels
 - mpsc channel bei 1000+ Nachrichten -> buffer zu klein?
