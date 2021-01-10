@@ -101,9 +101,20 @@ That's why i included the generated code in the repository under `grpc-example/g
 Provided you have installed `protoc` and set everything up correctly (https://developers.google.cn/protocol-buffers/docs/reference/go-generated[find out how to do that here]), you should be able to generate the code with this command:
 `protoc --proto_path=../proto --go_out=plugins=grpc:build/gen ../proto/notes.proto`
 
+=== Service Implementation
+
+Now that everything is setup
+
 == Available Frameworks  
 
 When it comes to building large distributed systems that are suited for production use in an enterprise environment, most of the time you probably don't want to build everything from scratch. So it makes sense to choose a framework or platform to build upon. Ideally, this should be one that is already being used by many other people and has turned out to be tried and true.
+
+Below is a small overview of available frameworks, platforms and libraries that can be used to build (large) distributed systems in Rust and Go respectively.
+
+One thing that stood out while researching available frameworks is that the overall amount of frameworks is a lot higher for Go than for Rust. Also, most of these frameworks seem to be generally more mature and better supported (as indicated by their number of contributors, releases as well as the age of the project).
+While i did find some very promising projects for Rust, only Actix and Tokio seem to be in a state where it would be advisable to use them in an enterprise production system.
+
+The conclusion to be drawn here is that the "community ecosystem" regarding distributed programming is a lot better with Go than with Rust. This is not very surprising considering the fact that Go was made by Google with these kinds of systems in mind from the start. Also the usage of Go in high profile projects like Kubernetes and Docker contributed to the languages popularity in the world of cloud native computing and distributed systems.
 
 === Frameworks for Rust
 
