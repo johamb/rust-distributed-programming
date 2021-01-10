@@ -4,20 +4,34 @@ import (
 	"context"
 	"io"
 	"log"
+	"fmt"
 
 	noticeboard "./build/gen"
 
 	"google.golang.org/grpc"
 )
 
+const port = 9000
+
 func main() {
 	// connect to the server
-	srv, err := grpc.Dial(":9000", grpc.WithInsecure())
+	ctx := context.Background()
+	srv, err := grpc.DialContext(ctx, fmt.Sprintf("localhost:%d", port), grpc.WithInsecure())
 	if err != nil {
 		log.Fatalf("can not connect with server %v", err)
 	}
+	log.Printf("state: %v", srv.GetState())
 
 	client := noticeboard.NewNoticeboardClient(srv)
+
+	var title = noticeboard.Title{Title: "What up"} 
+	note, err := client.GetNoteByTitle(ctx, &title)
+	if err != nil {
+		log.Fatalf("Error receiving note: %v", err)
+	}
+	log.Printf("Note received: %s", note.Content)
+
+	log.Printf("Streaming notes from the server")
 	author := &noticeboard.Author{Nickname: "", Mail: "hans@gmail.com"}
 	// open the stream
 	stream, err := client.ListNotesByAuthor(context.Background(), author)
@@ -38,7 +52,7 @@ func main() {
 			if err != nil {
 				log.Fatalf("cannot receive %v", err)
 			}
-			log.Printf("Resp received: %s", resp.Content)
+			log.Printf("Note received: %s", resp.Content)
 		}
 	}()
 
