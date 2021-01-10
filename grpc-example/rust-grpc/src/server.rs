@@ -1,4 +1,5 @@
 use std::sync::Arc;
+use std::net::{IpAddr, Ipv4Addr, SocketAddr};
 
 use tokio::sync::mpsc;
 use tonic::transport::Server;
@@ -58,7 +59,7 @@ impl Noticeboard for NoticeboardService {
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
-    let addr = "[::1]:9000".parse().unwrap();
+    let addr = SocketAddr::new(IpAddr::V4(Ipv4Addr::new(127, 0, 0, 1)), 9000);
 
     let noticeboard = NoticeboardService {
         notes: Arc::new(vec![
@@ -91,7 +92,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 
     let svc = NoticeboardServer::new(noticeboard);
 
-    Server::builder().add_service(svc).serve(addr).await?;
+    Server::builder().tcp_nodelay(false).add_service(svc).serve(addr).await?;
 
     Ok(())
 }
