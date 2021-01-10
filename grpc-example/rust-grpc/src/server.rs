@@ -37,7 +37,7 @@ impl Noticeboard for NoticeboardService {
         &self,
         request: Request<Author>,
     ) -> Result<Response<Self::ListNotesByAuthorStream>, Status> {
-        let (mut tx, rx) = mpsc::channel(100);
+        let (mut sender, receiver) = mpsc::channel(100);
         let notes = self.notes.clone();
 
         tokio::spawn(async move {
@@ -45,7 +45,7 @@ impl Noticeboard for NoticeboardService {
                 match &note.author {
                     Some(a) => {
                         if a.mail == request.get_ref().mail {
-                            tx.send(Ok(note.clone())).await.unwrap();
+                            sender.send(Ok(note.clone())).await.unwrap();
                         }
                     }
                     _ => (),
@@ -53,7 +53,7 @@ impl Noticeboard for NoticeboardService {
             }
         });
 
-        Ok(Response::new(rx))
+        Ok(Response::new(receiver))
     }
 }
 
