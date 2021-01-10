@@ -135,6 +135,48 @@ func (s *NoticeboardService) GetNoteByTitle(ctx context.Context, title *noticebo
 }
 ----
 
+The RPC method `ListNotesByAuthor` is a bit more complicated since it uses _server side streaming_.
+That means that instead of returning a single message as the response, the server to the client's request with a stream of multiple messages.
+
+This is the server side implementation of `ListNotesByAuthor` in Rust:
+
+[source,rust]
+----
+async fn list_notes_by_author(
+    &self,
+    request: Request<Author>,
+) -> Result<Response<Self::ListNotesByAuthorStream>, Status> {
+    let (mut tx, rx) = mpsc::channel(100);
+    let notes = self.notes.clone();
+    tokio::spawn(async move {
+        for note in &notes[..] {
+            match &note.author {
+                Some(a) => {
+                    if a.mail == request.get_ref().mail {
+                        tx.send(Ok(note.clone())).await.unwrap();
+                    }
+                }
+                _ => (),
+            }
+        }
+    });
+    Ok(Response::new(rx))
+}
+----
+
+And this is the server side implementation of `ListNotesByAuthor` in Go:
+[source,go]
+----
+func (s *NoticeboardService) ListNotesByAuthor(author *noticeboard.Author, srv noticeboard.Noticeboard_ListNotesByAuthorServer) error {
+	for _, note := range s.noticeboard {
+		if (note.Author.Mail == author.Mail) {
+			srv.Send(&note)
+		}
+	}
+	return nil
+}
+----
+
 - async beispiel: client go channel, client rust tokio
 - tokio mpsc: vergleichbar zu go channels
 - mpsc channel bei 1000+ Nachrichten -> buffer zu klein?
