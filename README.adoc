@@ -202,10 +202,6 @@ go func() {
 
 As we have seen, Rust offers similar capabilities for asynchronous programming although you have to rely on a third party package. In this regard, Go offers better functionality out of the box and using channels and goroutines feels a bit more convenient because the syntax feels very natural.
 
-- async beispiel: client go channel, client rust tokio
-- tokio mpsc: vergleichbar zu go channels
-- mpsc channel bei 1000+ Nachrichten -> buffer zu klein?
-
 == Available Frameworks  
 
 When it comes to building large distributed systems that are suited for production use in an enterprise environment, most of the time you probably don't want to build everything from scratch. So it makes sense to choose a framework or platform to build upon. Ideally, this should be one that is already being used by many other people and has turned out to be tried and true.
