@@ -117,7 +117,7 @@ async fn get_note_by_title(&self, request: Request<Title>) -> Result<Response<No
             return Ok(Response::new(note.clone()));
         }
     }
-    Ok(Response::new(Note::default()))
+    Err(Status::new(Code::NotFound, "Note not found"))
 }
 ----
 
@@ -135,7 +135,7 @@ func (s *NoticeboardService) GetNoteByTitle(ctx context.Context, title *noticebo
 }
 ----
 
-Overall, these implementations are almost identical except the Go implementation will send an error message in case no note can be found whereas the Rust implementation will just send an empty note because tonic's `Response::new()` only accepts
+Overall, these implementations are almost identical. What's worth noting though is that in the Rust implementation the notes are stored in a vector in an https://doc.rust-lang.org/std/sync/struct.Arc.html[Arc]: `notes: Arc<Vec<Note>>`. An `Arc` is a reference counting pointer providing shared ownership of a value and is thread-safe.
 
 The RPC method `ListNotesByAuthor` is a bit more complicated since it uses _server side streaming_.
 That means that instead of returning a single message as the response, the server to the client's request with a stream of multiple messages.
