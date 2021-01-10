@@ -36,7 +36,7 @@ impl Noticeboard for NoticeboardService {
         &self,
         request: Request<Author>,
     ) -> Result<Response<Self::ListNotesByAuthorStream>, Status> {
-        let (mut tx, rx) = mpsc::channel(4);
+        let (mut tx, rx) = mpsc::channel(100);
         let notes = self.notes.clone();
 
         tokio::spawn(async move {
