@@ -103,7 +103,23 @@ Provided you have installed `protoc` and set everything up correctly (https://de
 
 === Service Implementation
 
-Now that everything is setup
+Now that everything is setup let's have look at the actual service implementations.
+The noticeboard service provides two RPC methods: `GetNoteByTitle` and `ListNotesByAuthor`.
+`GetNoteByTitle` is a simple RPC method that takes a message of type `Title` (which consists of only a single string) and returns one message of type `Note`.
+
+This is the server side implementation for `GetNoteByTitle` in Rust:
+
+[source,rust]
+----
+async fn get_note_by_title(&self, request: Request<Title>) -> Result<Response<Note>, Status> {
+    for note in &self.notes[..] {
+        if note.title == request.get_ref().title {
+            return Ok(Response::new(note.clone()));
+        }
+    }
+    Ok(Response::new(Note::default()))
+}
+----
 
 - async beispiel: client go channel, client rust tokio
 - tokio mpsc: vergleichbar zu go channels
