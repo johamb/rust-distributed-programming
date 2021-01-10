@@ -20,7 +20,6 @@ func main() {
 	if err != nil {
 		log.Fatalf("can not connect with server %v", err)
 	}
-	log.Printf("state: %v", srv.GetState())
 
 	client := noticeboard.NewNoticeboardClient(srv)
 

@@ -23,8 +23,9 @@ async fn get_notes_by_author(
         .into_inner();
 
     while let Some(note) = stream.message().await? {
-        println!("NOTE = {:?}", note);
+        println!("Note received: {:?}", note);
     }
+    println!("finished");
 
     Ok(())
 }
@@ -39,7 +40,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         }))
         .await?;
 
-    println!("RESPONSE = {:?}", response);
+    println!("Note received: {:?}", response.get_ref());
 
     println!("\n Streaming notes from the server:");
     get_notes_by_author(&mut client, "hans@gmail.com").await?;
