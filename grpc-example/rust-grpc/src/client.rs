@@ -3,7 +3,7 @@ pub mod notes {
 }
 
 use notes::noticeboard_client::NoticeboardClient;
-use notes::{Author, Note, Title};
+use notes::{Author, Title};
 use std::error::Error;
 use tonic::transport::Channel;
 use tonic::Request;
@@ -31,7 +31,7 @@ async fn get_notes_by_author(
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
-    let mut client = NoticeboardClient::connect("http://[::1]:9000").await?;
+    let mut client = NoticeboardClient::connect("tcp://[::1]:9000").await?;
 
     let response = client
         .get_note_by_title(Request::new(Title {
